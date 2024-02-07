@@ -1,22 +1,28 @@
 #!/usr/bin/python3
 from uuid import uuid4
-import datetime
+from datetime import datetime
 
 
 class BaseModel:
     """That defines all common attributes/methods for other classes"""
-    def __init__(self):
-        """Initialize a new Base.
-        Args:
-            id (int): The identity of the new Base.
-        """
-        self.id = str(uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
+    def __init__(self, *args, **kwargs):
+        """re-create an instance with this dictionary representation."""
+        if kwargs:
+            del kwargs["__class__"]
+            for key, value in kwargs.items():
+                if key == "created_at" or key == "updated_at":
+                    dtime_obj = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                    setattr(self, key, dtime_obj)
+                else:
+                    setattr(self, key, value)
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def save(self):
         """pdates the public instance attribute updated_at"""
-        self.updated_at = datetime.datetime.now()
+        self.updated_at = datetime.now()
 
     def to_dict(self):
         """ returns a dictionary containing all keys/values of __dict__ """
@@ -25,7 +31,7 @@ class BaseModel:
         dictReturn["__class__"] = self.__class__.__name__
 
         for key, val in self.__dict__.items():
-            if isinstance(val, datetime.datetime):
+            if isinstance(val, datetime):
                 dictReturn[key] = val.isoformat()
             else:
                 dictReturn[key] = val
