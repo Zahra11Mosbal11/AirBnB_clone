@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from uuid import uuid4
 from datetime import datetime
-
+import models
 
 class BaseModel:
     """That defines all common attributes/methods for other classes"""
@@ -23,8 +23,9 @@ class BaseModel:
     def save(self):
         """pdates the public instance attribute updated_at"""
         self.updated_at = datetime.now()
+        models.storage.save()
 
-    def to_dict(self):
+    def zh_to_dict(self):
         """ returns a dictionary containing all keys/values of __dict__ """
         dictReturn = {}
 
