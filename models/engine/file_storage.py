@@ -28,12 +28,15 @@ class FileStorage:
 
     def reload(self):
         """ deserializes the JSON file to __objects """
+        definedClasses = {'BaseModel': BaseModel}
         try:
-            with open(FileStorage.__filePath, encoding-"utf-8") as jsonStr:
+            with open(FileStorage.__filePath, encoding="utf-8") as jsonStr:
                 deser = json.load(jsonStr)
                 for obj_values in deser.values():
                     clsName = obj_values["__class__"]
-                    if isinstance(clsName, str) and type(eval(clsName) == type:
-                            self.new(eval(clsName)(**obj_values))
-        except FileNOtFoundError:
-        pass
+                    cls_obj = definedClasses[clsName]
+
+                    self.new(cls_obj(**obj_values))
+        
+        except FileNotFoundError:
+            pass
