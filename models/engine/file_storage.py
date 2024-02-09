@@ -2,6 +2,8 @@
 """Defines FileStorage class."""
 import json
 from models.base_model import BaseModel
+from models.user import User
+
 
 class FileStorage:
     """ Private class attributes """
@@ -28,7 +30,7 @@ class FileStorage:
 
     def reload(self):
         """ deserializes the JSON file to __objects """
-        definedClasses = {'BaseModel': BaseModel}
+        definedClasses = {'BaseModel': BaseModel, 'User': User}
         try:
             with open(FileStorage.__filePath, encoding="utf-8") as jsonStr:
                 deser = json.load(jsonStr)

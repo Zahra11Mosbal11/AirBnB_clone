@@ -5,8 +5,9 @@ import json
 import re
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
 
-my_classes = {'BaseModel': BaseModel}
+my_classes = {'BaseModel': BaseModel, 'User': User}
 
 
 class HBNBCommand(cmd.Cmd):
