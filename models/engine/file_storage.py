@@ -3,6 +3,11 @@
 import json
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.review import Review
+from models.amenity import Amenity
+from models.place import Place
 
 
 class FileStorage:
@@ -30,7 +35,9 @@ class FileStorage:
 
     def reload(self):
         """ deserializes the JSON file to __objects """
-        definedClasses = {'BaseModel': BaseModel, 'User': User}
+        definedClasses = {'BaseModel': BaseModel, 'User': User,
+                           'Amenity': Amenity, 'City': City, 'State': State,
+                           'Place': Place, 'Review': Review}
         try:
             with open(FileStorage.__filePath, encoding="utf-8") as jsonStr:
                 deser = json.load(jsonStr)
