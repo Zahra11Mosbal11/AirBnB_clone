@@ -23,6 +23,17 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = '(hbnb) '
 
+    def precmd(self, line):
+        """Defines instructions to execute before <line> is interpreted."""
+        if not line:
+            return '\n'
+        if "." in line:
+            line = line.replace(".", " ").replace("(", "").replace(")", "").replace("\"", " ")
+            line = line.split(" ")
+            line = f"{line[1]} {line[0]} {line[2]}"
+        print(line)
+        return cmd.Cmd.precmd(self, line)
+
     def do_quit(self, arg):
         """Quit command to exit the program"""
         return True
