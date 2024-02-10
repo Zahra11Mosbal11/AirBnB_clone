@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Custom base class for the entire project
+"""
 
 from uuid import uuid4
 from datetime import datetime
