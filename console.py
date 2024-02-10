@@ -13,8 +13,8 @@ from models.amenity import Amenity
 from models.place import Place
 
 my_classes = {'BaseModel': BaseModel, 'User': User,
-                   'Amenity': Amenity, 'City': City, 'State': State,
-                   'Place': Place, 'Review': Review}
+              'Amenity': Amenity, 'City': City, 'State': State,
+              'Place': Place, 'Review': Review}
 
 
 class HBNBCommand(cmd.Cmd):
@@ -22,12 +22,12 @@ class HBNBCommand(cmd.Cmd):
     of this project.
     """
     prompt = '(hbnb) '
-    
+
     def default(self, line):
         """Defines instructions to execute before <line> is interpreted."""
         classes = ["BaseModel", "User", "State", "City", "Amenity",
-                 "Place", "Review"]
-        
+                                "Place", "Review"]
+
         com_list = {"all": self.do_all,
                     "count": self.class_count,
                     "show": self.do_show,
@@ -58,16 +58,14 @@ class HBNBCommand(cmd.Cmd):
                 com_list[args[1]](args[0] + " " + par.groups()[0] + " " +
                                   resalt[0] + " " + resalt[1])
 
-
     def class_count(self, my_class):
         """counts instances of a certain class"""
         count = 0
-        
+
         for instance_obj in storage.all().values():
             if instance_obj.__class__.__name__ == my_class:
                 count += 1
         print(count)
-
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
@@ -116,7 +114,7 @@ class HBNBCommand(cmd.Cmd):
             if _instance is None:
                 print("** no instance found **")
                 return
-            print(_instance )
+            print(_instance)
 
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id"""
@@ -127,7 +125,6 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
-
         else:
             instanceObjs = storage.all()
             key = "{}.{}".format(args[0], args[1])
@@ -217,7 +214,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             return True
 
-
     def isInt(i):
         """Checks if `x` is int."""
         try:
@@ -227,6 +223,7 @@ class HBNBCommand(cmd.Cmd):
             return False
         else:
             return a == b
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

@@ -15,7 +15,6 @@ class FileStorage:
     __filePath = "file.json"
     __objects = {}
 
-
     def all(self):
         """ returns the dictionary __objects"""
         return FileStorage.__objects
@@ -27,7 +26,7 @@ class FileStorage:
     def save(self):
         """ serializes __objects to the JSON file """
         dict_Obj = {}
-        
+
         for key, value in FileStorage.__objects.items():
             dict_Obj[key] = value.zh_to_dict()
             with open(FileStorage.__filePath, "w", encoding="utf-8") as jsonF:
@@ -36,8 +35,8 @@ class FileStorage:
     def reload(self):
         """ deserializes the JSON file to __objects """
         definedClasses = {'BaseModel': BaseModel, 'User': User,
-                           'Amenity': Amenity, 'City': City, 'State': State,
-                           'Place': Place, 'Review': Review}
+                          'Amenity': Amenity, 'City': City, 'State': State,
+                          'Place': Place, 'Review': Review}
         try:
             with open(FileStorage.__filePath, encoding="utf-8") as jsonStr:
                 deser = json.load(jsonStr)
@@ -46,6 +45,6 @@ class FileStorage:
                     cls_obj = definedClasses[clsName]
 
                     self.new(cls_obj(**obj_values))
-        
+
         except FileNotFoundError:
             pass
