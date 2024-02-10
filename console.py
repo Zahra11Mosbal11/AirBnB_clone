@@ -1,7 +1,11 @@
 #!/usr/bin/python3
-"""This module defines the entry point of the command interpreter."""
+"""This module defines the entry point of 
+the command interpreter.
+"""
+
 import cmd
 import json
+import sys
 import re
 from models import storage
 from models.base_model import BaseModel
@@ -226,4 +230,7 @@ class HBNBCommand(cmd.Cmd):
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        command = ' '.join(sys.argv[1:])
+        HBNBCommand().default(command)
     HBNBCommand().cmdloop()

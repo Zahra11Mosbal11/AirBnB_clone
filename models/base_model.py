@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Module: basemodel.py
+"""
 
 from uuid import uuid4
 from datetime import datetime
@@ -6,9 +9,14 @@ import models
 
 
 class BaseModel:
-    """That defines all common attributes/methods for other classes"""
+    """That defines all:
+    common attributes/methods for other classes
+    """
+
     def __init__(self, *args, **kwargs):
-        """re-create an instance with this dictionary representation."""
+        """re-create an instance:
+        with this dictionary representation.
+        """
         if kwargs:
             del kwargs["__class__"]
             for key, value in kwargs.items():

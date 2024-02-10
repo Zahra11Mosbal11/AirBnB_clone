@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""Defines FileStorage class."""
+"""Defines:
+FileStorage class.
+"""
 import json
 from models.base_model import BaseModel
 from models.user import User
@@ -11,7 +13,7 @@ from models.place import Place
 
 
 class FileStorage:
-    """ Private class attributes """
+    """Private class attributes """
     __filePath = "file.json"
     __objects = {}
 
