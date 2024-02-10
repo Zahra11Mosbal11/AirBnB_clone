@@ -22,17 +22,52 @@ class HBNBCommand(cmd.Cmd):
     of this project.
     """
     prompt = '(hbnb) '
-
-    def precmd(self, line):
+    
+    def default(self, line):
         """Defines instructions to execute before <line> is interpreted."""
-        if not line:
-            return '\n'
-        if "." in line:
-            line = line.replace(".", " ").replace("(", "").replace(")", "").replace("\"", " ")
-            line = line.split(" ")
-            line = f"{line[1]} {line[0]} {line[2]}"
-        print(line)
-        return cmd.Cmd.precmd(self, line)
+        classes = ["BaseModel", "User", "State", "City", "Amenity",
+                 "Place", "Review"]
+        
+        com_list = {"all": self.do_all,
+                    "count": self.class_count,
+                    "show": self.do_show,
+                    "destroy": self.do_destroy,
+                    "update": self.do_update}
+
+        args = re.match(r"^(\w+)\.(\w+)\((.*)\)", line)
+        if args:
+            args = args.groups()
+        if not args or len(args) < 2 or args[0] not in classes \
+                or args[1] not in com_list.keys():
+            super().default(line)
+            return
+
+        if args[1] in ["all", "count"]:
+            com_list[args[1]](args[0])
+        elif args[1] in ["show", "destroy"]:
+            com_list[args[1]](args[0] + ' ' + args[2])
+        elif args[1] == "update":
+            par = re.match(r"\"(.+?)\", (.+)", args[2])
+            if par.groups()[1][0] == '{':
+                dic_p = eval(par.groups()[1])
+                for key, val in dic_p.items():
+                    com_list[args[1]](args[0] + " " + par.groups()[0] +
+                                      " " + key + " " + str(val))
+            else:
+                resalt = par.groups()[1].split(", ")
+                com_list[args[1]](args[0] + " " + par.groups()[0] + " " +
+                                  resalt[0] + " " + resalt[1])
+
+
+    def class_count(self, my_class):
+        """counts instances of a certain class"""
+        count = 0
+        
+        for instance_obj in storage.all().values():
+            if instance_obj.__class__.__name__ == my_class:
+                count += 1
+        print(count)
+
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
