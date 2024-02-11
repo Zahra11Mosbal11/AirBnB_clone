@@ -8,9 +8,8 @@ from models import storage
 from models.city import City
 from datetime import datetime
 
-c1 = City()
-c2 = City(**c1.to_dict())
-c3 = City("hello", "wait", "in")
+city1 = City()
+city2 = City(**city1.to_dict())
 
 
 class TestCity(unittest.TestCase):
@@ -25,35 +24,34 @@ class TestCity(unittest.TestCase):
         if os.path.exists(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)
 
-    def test_params(self):
+    def test_attributes(self):
         """Test method for class attributes"""
-        k = f"{type(c1).__name__}.{c1.id}"
-        self.assertIsInstance(c1.name, str)
-        self.assertEqual(c3.name, "")
-        c1.name = "Abuja"
-        self.assertEqual(c1.name, "Abuja")
+        city = City()
+
+        self.assertEqual(city.name, "")
+        self.assertEqual(city.state_id, "")
 
     def test_init(self):
         """Test method for public instances"""
-        self.assertIsInstance(c1.id, str)
-        self.assertIsInstance(c1.created_at, datetime)
-        self.assertIsInstance(c1.updated_at, datetime)
-        self.assertEqual(c1.updated_at, c2.updated_at)
+        self.assertIsInstance(city1.id, str)
+        self.assertIsInstance(city1.created_at, datetime)
+        self.assertIsInstance(city1.updated_at, datetime)
+        self.assertEqual(city1.updated_at, city2.updated_at)
 
     def test_save(self):
         """Test method for save"""
-        old_update = c1.updated_at
-        c1.save()
-        self.assertNotEqual(c1.updated_at, old_update)
+        old_update = city1.updated_at
+        city1.save()
+        self.assertNotEqual(city1.updated_at, old_update)
 
     def test_todict(self):
         """Test method for dict"""
-        a_dict = c2.to_dict()
-        self.assertIsInstance(a_dict, dict)
-        self.assertEqual(a_dict['__class__'], type(c2).__name__)
-        self.assertIn('created_at', a_dict.keys())
-        self.assertIn('updated_at', a_dict.keys())
-        self.assertNotEqual(c1, c2)
+        c_dict = city2.to_dict()
+        self.assertIsInstance(c_dict, dict)
+        self.assertEqual(c_dict['__class__'], type(city2).__name__)
+        self.assertIn('created_at', c_dict.keys())
+        self.assertIn('updated_at', c_dict.keys())
+        self.assertNotEqual(city1, city2)
 
 
 if __name__ == "__main__":
