@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Defines FileStorage class."""
+
 import json
 from models.base_model import BaseModel
 from models.user import User
@@ -12,7 +13,7 @@ from models.place import Place
 
 class FileStorage:
     """ Private class attributes """
-    __filePath = "file.json"
+    __file_path = "file.json"
     __objects = {}
 
     def all(self):
@@ -31,7 +32,7 @@ class FileStorage:
         for key, value in FileStorage.__objects.items():
             dict_Obj[key] = value.to_dict()
 
-        with open(FileStorage.__filePath, "w", encoding="utf-8") as jsonF:
+        with open(FileStorage.__file_path, "w", encoding="utf-8") as jsonF:
             json.dump(dict_Obj, jsonF)
 
     def reload(self):
@@ -40,7 +41,7 @@ class FileStorage:
                           'Amenity': Amenity, 'City': City, 'State': State,
                           'Place': Place, 'Review': Review}
         try:
-            with open(FileStorage.__filePath, encoding="utf-8") as jsonStr:
+            with open(FileStorage.__file_path, encoding="utf-8") as jsonStr:
                 deser = json.load(jsonStr)
                 for obj_values in deser.values():
                     clsName = obj_values["__class__"]
