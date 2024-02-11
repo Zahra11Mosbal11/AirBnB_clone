@@ -38,10 +38,17 @@ class BaseModel:
         models.storage.save()
 
     def to_dict(self):
-        """ returns a dictionary containing all keys/values of __dict__"""
-        dict = {**self.__dict__}
-        dict['__class__'] = type(self).__name__
-        dict['created_at'] = dict['created_at'].isoformat()
+        """ returns a dictionary containing all keys/values of __dict__
+        #dict = {**self.__dict__}
+        #dict['__class__'] = type(self).__name__
+        #dict['created_at'] = dict['created_at'].isoformat()
         dict['updated_at'] = dict['updated_at'].isoformat()
-
-        return dict
+        return dict"""
+        dictReturn = {}
+        dictReturn["__class__"] = self.__class__.__name__
+        for key, val in self.__dict__.items():
+            if isinstance(val, datetime):
+                dictReturn[key] = val.isoformat()
+            else:
+                dictReturn[key] = val
+        return(dictReturn)
