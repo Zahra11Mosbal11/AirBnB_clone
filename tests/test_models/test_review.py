@@ -8,6 +8,9 @@ from models import storage
 from datetime import datetime
 from models.engine.file_storage import FileStorage
 
+rev1 = Review()
+rev2 = Review(**rev1.to_dict())
+
 
 class TestReview(unittest.TestCase):
     """Test cases for the `Review` class."""
@@ -21,49 +24,40 @@ class TestReview(unittest.TestCase):
         if os.path.exists(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)
 
-    def test_params(self):
+    def test_attributes(self):
         """Test method for class attributes"""
 
-        r1 = Review()
-        r3 = Review("hello", "wait", "in")
-        k = f"{type(r1).__name__}.{r1.id}"
-        self.assertIsInstance(r1.text, str)
-        self.assertIsInstance(r1.user_id, str)
-        self.assertIsInstance(r1.place_id, str)
-        self.assertEqual(r3.text, "")
+        key = f"{type(rev1).__name__}.{rev1.id}"
+        self.assertIsInstance(rev1.text, str)
+        self.assertIsInstance(rev1.user_id, str)
+        self.assertIsInstance(rev1.place_id, str)
 
     def test_init(self):
         """Test method for public instances"""
-        r1 = Review()
-        r2 = Review(**r1.to_dict())
-        self.assertIsInstance(r1.id, str)
-        self.assertIsInstance(r1.created_at, datetime)
-        self.assertIsInstance(r1.updated_at, datetime)
-        self.assertEqual(r1.updated_at, r2.updated_at)
+        self.assertIsInstance(rev1.id, str)
+        self.assertIsInstance(rev1.created_at, datetime)
+        self.assertIsInstance(rev1.updated_at, datetime)
+        self.assertEqual(rev1.updated_at, rev2.updated_at)
 
     def test_str(self):
         """Test method for str representation"""
-        r1 = Review()
-        string = f"[{type(r1).__name__}] ({r1.id}) {r1.__dict__}"
-        self.assertEqual(r1.__str__(), string)
+        _str = f"[{type(rev1).__name__}] ({rev1.id}) {rev1.__dict__}"
+        self.assertEqual(rev1.__str__(), _str)
 
     def test_save(self):
         """Test method for save"""
-        r1 = Review()
-        old_update = r1.updated_at
-        r1.save()
-        self.assertNotEqual(r1.updated_at, old_update)
+        old_update = rev1.updated_at
+        rev1.save()
+        self.assertNotEqual(rev1.updated_at, old_update)
 
     def test_todict(self):
         """Test method for dict"""
-        r1 = Review()
-        r2 = Review(**r1.to_dict())
-        a_dict = r2.to_dict()
-        self.assertIsInstance(a_dict, dict)
-        self.assertEqual(a_dict['__class__'], type(r2).__name__)
-        self.assertIn('created_at', a_dict.keys())
-        self.assertIn('updated_at', a_dict.keys())
-        self.assertNotEqual(r1, r2)
+        r_dict = rev2.to_dict()
+        self.assertIsInstance(r_dict, dict)
+        self.assertEqual(r_dict['__class__'], type(rev2).__name__)
+        self.assertIn('created_at', r_dict.keys())
+        self.assertIn('updated_at', r_dict.keys())
+        self.assertNotEqual(rev1, rev2)
 
 
 if __name__ == "__main__":

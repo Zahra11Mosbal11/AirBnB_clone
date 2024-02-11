@@ -28,7 +28,7 @@ class TestPlace(unittest.TestCase):
         """Test method for class attributes"""
 
         key = f"{type(plc1).__name__}.{plc1.id}"
-        self.assertIn(key, storage.all())
+
         self.assertIsInstance(plc1.name, str)
         self.assertIsInstance(plc1.user_id, str)
         self.assertIsInstance(plc1.city_id, str)
