@@ -39,9 +39,9 @@ class BaseModel:
 
     def to_dict(self):
         """ returns a dictionary containing all keys/values of __dict__"""
-        dict = {**self.__dict__}
-        dict['__class__'] = type(self).__name__
-        dict['created_at'] = dict['created_at'].isoformat()
-        dict['updated_at'] = dict['updated_at'].isoformat()
+        diction = {**self.__dict__}
+        diction['__class__'] = type(self).__name__
+        diction['created_at'] = diction['created_at'].isoformat()
+        diction['updated_at'] = diction['updated_at'].isoformat()
 
-        return dict
+        return diction
