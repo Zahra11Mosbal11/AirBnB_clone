@@ -29,7 +29,7 @@ class FileStorage:
         dict_Obj = {}
 
         for key, value in FileStorage.__objects.items():
-            dict_Obj[key] = value.zh_to_dict()
+            dict_Obj[key] = value.to_dict()
 
         with open(FileStorage.__filePath, "w", encoding="utf-8") as jsonF:
             json.dump(dict_Obj, jsonF)

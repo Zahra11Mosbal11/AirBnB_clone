@@ -37,7 +37,7 @@ class BaseModel:
         self.updated_at = datetime.now()
         models.storage.save()
 
-    def zh_to_dict(self):
+    def to_dict(self):
         """ returns a dictionary containing all keys/values of __dict__"""
         dict = {**self.__dict__}
         dict['__class__'] = type(self).__name__
