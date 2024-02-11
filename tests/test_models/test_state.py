@@ -40,7 +40,7 @@ class TestState(unittest.TestCase):
 
     def test_str(self):
         """Test method for str representation"""
-        
+
         _str = f"[{type(sta1).__name__}] ({sta1.id}) {sta1.__dict__}"
         self.assertEqual(sta1.__str__(), _str)
 

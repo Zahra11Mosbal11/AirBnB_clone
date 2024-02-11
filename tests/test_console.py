@@ -30,18 +30,16 @@ class TestConsole(unittest.TestCase):
         self.mock_stdin = create_autospec(sys.stdin)
         self.mock_stdout = create_autospec(sys.stdout)
         self.error = ["** class name missing **",
-                    "** class doesn't exist **",
-                    "** instance id missing **",
-                    "** no instance found **",
-                    ]
-
+                      "** class doesn't exist **",
+                      "** instance id missing **",
+                      "** no instance found **"]
         self.classes = ["BaseModel",
-                    "User",
-                    "State",
-                    "City",
-                    "Place",
-                    "Amenity",
-                    "Review"]
+                        "User",
+                        "State",
+                        "City",
+                        "Place",
+                        "Amenity",
+                        "Review"]
 
     def create_console_instance(self):
         """

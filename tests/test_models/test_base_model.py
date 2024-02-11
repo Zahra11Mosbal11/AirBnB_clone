@@ -61,7 +61,7 @@ class TestBase(unittest.TestCase):
     def test_save_storage(self):
         """Tests that storage.save() is called from save()."""
         pass
-            
+
     def test_save_non_args(self):
         """Tests save() with no arguments."""
         with self.assertRaises(TypeError) as e:
