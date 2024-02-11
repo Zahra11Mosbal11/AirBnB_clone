@@ -29,13 +29,13 @@ class TestConsole(unittest.TestCase):
         """Redirecting stdin and stdout"""
         self.mock_stdin = create_autospec(sys.stdin)
         self.mock_stdout = create_autospec(sys.stdout)
-        self.err = ["** class name missing **",
+        self.error = ["** class name missing **",
                     "** class doesn't exist **",
                     "** instance id missing **",
                     "** no instance found **",
                     ]
 
-        self.cls = ["BaseModel",
+        self.classes = ["BaseModel",
                     "User",
                     "State",
                     "City",
@@ -43,13 +43,13 @@ class TestConsole(unittest.TestCase):
                     "Amenity",
                     "Review"]
 
-    def create(self, server=None):
+    def create_console_instance(self):
         """
-        Redirects stdin and stdout to the mock module
+        Create an instance of the console application
         """
         return HBNBCommand(stdin=self.mock_stdin, stdout=self.mock_stdout)
 
-    def last_write(self, nr=None):
+    def last_line(self, nr=None):
         """Returns last n output lines"""
         if nr is None:
             return self.mock_stdout.write.call_args[0][0]
@@ -58,7 +58,7 @@ class TestConsole(unittest.TestCase):
 
     def test_quit(self):
         """Quit command"""
-        cli = self.create()
+        cli = self.create_console_instance()
         self.assertTrue(cli.onecmd("quit"))
 
 
