@@ -5,9 +5,6 @@ footer {
   display: grid;
   position: fixed;
   border-top: 1px solid #CCCCCC;
-  /*top: unset;
-  inset: 0px;
-  */
   place-content: center;
   bottom: 0;
 }
